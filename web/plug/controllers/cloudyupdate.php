@@ -6,7 +6,8 @@
 $list_packages = array('cDistro'=>array('user'=>'Clommunity', 'repo'=>'cDistro','type'=>'manual','script'=>'https://raw.githubusercontent.com/Clommunity/lbmake/master/hooks/cDistro.chroot'),
 					   'avahi-ps'=>array('user'=>'Clommunity', 'repo'=>'avahi-ps','type'=>'manual','script'=>'https://raw.githubusercontent.com/Clommunity/lbmake/master/hooks/avahi-ps.chroot'),
 					   'serf'=>array('user'=>'Clommunity', 'repo'=>'package-serf','type'=>'manual','controller'=>'serf', 'script'=>'https://raw.githubusercontent.com/Clommunity/lbmake/master/hooks/serf.chroot'),
-					   'peerstreamer'=>array('user'=>'Clommunity', 'repo'=>'build-peerstreamer','type'=>'preinstall','controller'=>'peerstreamer', 'function-check'=>'_isInstalled', 'script'=>'https://raw.githubusercontent.com/Clommunity/lbmake/master/hooks/peerstreamer.chroot')
+					   'peerstreamer'=>array('user'=>'Clommunity', 'repo'=>'build-peerstreamer','type'=>'preinstall','controller'=>'peerstreamer', 'function-check'=>'_isInstalled', 'script'=>'https://raw.githubusercontent.com/Clommunity/lbmake/master/hooks/peerstreamer.chroot'),
+					   'monitor'=>array('user'=>'Clommunity', 'repo'=>'monitor','type'=>'auto','controller'=>'monitor-aas','script'=>'https://raw.githubusercontent.com/Clommunity/monitor/master/getgithub')
 			// 'peerstreamer'=>array('user'=>'Clommunity', 'repo'=>'build-peerstreamer','type'=>'manual','controller'=>'peerstreamer', 'script'=>'https://raw.githubusercontent.com/Clommunity/lbmake/master/hooks/peerstreamer.chroot')
 					   );
 $dir_configs="/etc/cloudy";

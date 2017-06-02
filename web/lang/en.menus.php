@@ -24,7 +24,7 @@ addS ("menus_cloudy_system","System");
 addS ("menus_cloudy_updates","Updates");
 addS ("menus_cloudy_sshkeys","Add developers' SSH keys");
 addS ("menus_cloudy_logout","Log out");
-
+addS ("menus_cloudy_monitor","Monitor");
 
 //Getinconf
 addS ("menus_getinconf_getinconf","Getinconf");
