@@ -15,6 +15,10 @@ body {
   margin: 0 auto;
 }
 
+.table td{
+  font-size: medium;
+}
+
 footer a {
 	color: #333;
 	text-decoration: underline;

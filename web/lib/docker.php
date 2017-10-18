@@ -67,13 +67,19 @@ function docker_ps_running_table($dock_filter = null){
           $cname = preg_replace('/\s+/', '', $fields[6]);
           $cnametr =  preg_replace('/_public$/', '', $cname);
 
+          $cinspect = _dockerinspectcontainer($cid);
+
           if ( endsWith($cname, "_public" ))
           {
             $buttons[] = addButton(array('label'=>t("docker_button_container_unpublish"),'class'=>'btn btn-warning', 'href'=>"$urlpath/container/unpublish/".$cid."/".$cname));
           }
-          else
+          elseif ( gettype($cinspect["HostConfig"]["PortBindings"]) == "array" && sizeof($cinspect["HostConfig"]["PortBindings"]) )
           {
             $buttons[] = addButton(array('label'=>t("docker_button_container_publish"),'class'=>'btn btn-info', 'href'=>"$urlpath/container/publish/".$cid."/".$cname));
+          }
+          else
+          {
+            $buttons[] = addButton(array('label'=>t("docker_button_container_publish"),'class'=>'btn btn-default disabled', ""));
           }
           $buttons[] = addButton(array('label'=>t("docker_button_container_stop"),'class'=>'btn btn-danger', 'href'=>"$urlpath/container/stop/".$cid."/".$cname));
           if (($dock_filter === null) || ( strpos($cname, $dock_filter.'_') !== false))
@@ -362,6 +368,31 @@ function _dockercontainerrestart($id, $name) {
 
     execute_program_detached("docker restart " . $id);
     setFlash( t("docker_flash_restart_pre") . $name . t("docker_flash_restart_mid") . $id . t("docker_flash_restart_post"));
+
+    return(array('type'=> 'redirect', 'url' => $urlpath));
+}
+
+
+function _dockercontainerunpublish($cname)
+{
+    global $Parameters, $urlpath, $staticFile;
+
+    $cinspect = _dockerinspectcontainer($cname);
+
+    if ( $cinspect === NULL )
+    {
+        setFlash(t("docker_flash_unpublish_error_pre") . $cname . t("docker_flash_unpublish_error_post"), "error");
+        return(array('type'=> 'redirect', 'url' => $urlpath));
+    }
+
+    setFlash(t("docker_flash_unpublish_pre") . $cname . t("docker_flash_unpublish_post"), "success");
+    if ( gettype($cinspect["HostConfig"]["PortBindings"]) == "array" )
+    {
+        foreach ( $cinspect["HostConfig"]["PortBindings"] as $pkey => $pvalue )
+        {
+            avahi_unpublish( 'Docker', $pvalue[0]["HostPort"]);
+        }
+    }
 
     return(array('type'=> 'redirect', 'url' => $urlpath));
 }

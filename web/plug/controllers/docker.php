@@ -139,7 +139,10 @@ function container() {
         case "unpublish":
             if (isset($Parameters[1]))
                 if (isset($Parameters[2]) && endsWith($Parameters[2], "_public"))
+                {
+                    _dockercontainerunpublish($Parameters[1]);
                     return _dockercontainerrename($Parameters[1], preg_replace('/_public$/', '', $Parameters[2]));
+                }
             break;
 
         default:
