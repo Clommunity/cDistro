@@ -52,6 +52,8 @@ addS ("sweep_button_reload", "Reload");
 addS ("sweep_button_log", "Log");
 
 // Form
+addS ("sweep_form_local_seed", "Sweep Local Seed");
+addS ("sweep_form_local_seed_desc", "Local Seed to be used by Sweep");
 addS ("sweep_form_local_ip", "Sweep Local Address");
 addS ("sweep_form_local_ip_desc", "Local IP to be used by Sweep");
 addS ("sweep_form_local_port", "Sweep Local Port");
