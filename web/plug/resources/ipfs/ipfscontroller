@@ -1,0 +1,123 @@
+#!/bin/bash
+IPFSPATH="/var/local/ipfs/"
+IPFSPROG="go-ipfs/ipfs"
+SERVICEDIR="services/"
+LOGFILE="/dev/null"
+IPFSUSER="nobody"
+IPFSFILE="ipfs.info"
+CONFIG="config"
+TMPCONFIG="tmpconfig"
+IPFSLOG="ipfs-daemon.log"
+BOOTSTRAP="/ip4/10.139.40.99/tcp/4001/ipfs/QmU2m75ucoNgRHufwpnLTJEDzgyAJ8RvhdZWsmfgQyFe5u"
+
+doInstall() {
+	if isInstalled
+	then
+		echo "IPFS is already installed."
+		return
+	fi
+
+	mkdir -p $IPFSPATH
+	mkdir -p $IPFSPATH$SERVICEDIR
+	export IPFS_PATH=$IPFSPATH
+	chmod 755 $IPFSPATH && cd $IPFSPATH
+	ipfstarball=go-ipfs.tar.gz
+	wget -O $ipfstarball https://dist.ipfs.io/go-ipfs/v0.4.10/go-ipfs_v0.4.10_linux-amd64.tar.gz
+	tar xvfz $ipfstarball
+	chmod +x go-ipfs/ipfs
+	$IPFSPATH$IPFSPROG init > $IPFSPATH$IPFSLOG 2>&1
+	clearBootstrap && addBootstrapNode $BOOTSTRAP
+	clearMDNSDiscovery
+	cd -
+}
+
+clearBootstrap(){
+	jq '.Bootstrap |= []' $IPFSPATH$CONFIG > $IPFSPATH$TMPCONFIG
+	mv $IPFSPATH$TMPCONFIG $IPFSPATH$CONFIG
+}
+
+clearMDNSDiscovery(){
+	jq '.Discovery.MDNS.Enabled |= false' $IPFSPATH$CONFIG > $IPFSPATH$TMPCONFIG
+	mv $IPFSPATH$TMPCONFIG $IPFSPATH$CONFIG
+}
+
+addBootstrapNode() {
+	jq '.Bootstrap += ["'$BOOTSTRAP'"]' $IPFSPATH$CONFIG > $IPFSPATH$TMPCONFIG
+	mv $IPFSPATH$TMPCONFIG $IPFSPATH$CONFIG
+}
+
+doInit() {
+	cd $IPFSPATH
+	cmd=$IPFSPATH$IPFSPROG' init'
+	output=$(eval $cmd)
+	ipfsid=$(echo $output | cut -d':' -f2 | cut -d' ' -f2)
+	echo 'ipfs plublic id: '$ipfsid
+	cd -
+}
+
+doServer(){
+    local port=${1:-""}
+    local description=${2:-""}
+    local ip=${3:-"0.0.0.0"}
+
+    export IPFS_PATH=$IPFSPATH
+    # Creating directory with nobody permissions
+   # mkdir -p "/var/local/ipfs" && cd "/var/local/ipfs"
+   # chmod 777 "/var/local/ipfs" && cd "/var/local/ipfs"
+    cd $IPFSPATH
+    # Running ipfs
+    $IPFSPATH$IPFSPROG daemon > $IPFSPATH$IPFSLOG 2>&1 &
+    pidipfs=$!
+  #  cmd='su '$IPFSUSER' -c "{ '$IPFSPATH$IPFSPROG' daemon > 'thingcalledlog' 2>&1 & }; echo \$!"'
+  #  pidipfs=$(eval $cmd)          # keeping PID for future needs...
+
+    cd -
+
+    # Using the PID, we could carry on process control so if the ipfs process die, we can also
+    # stop the avahi process to avoid "false connections"
+	info="$pidipfs http://$ip:$port"
+	echo $info > $IPFSPATH$IPFSFILE
+    return
+}
+
+doStop() {
+    # Stopping ipfs node
+    ipfspid=$(cat $IPFSPATH$IPFSFILE | cut -d' ' -f1)
+    kill $ipfspid
+
+    # Removing info file
+    rm $IPFSPATH$IPFSFILE
+}
+
+isInstalled() {
+	[ -e $IPFSPATH ] && return 0
+	return 1
+}
+
+if [ $# -lt 1 ]
+then
+    doHelp
+fi
+
+case $1 in
+    "install")
+        shift
+        doInstall $@
+        ;;
+    "initialize")
+        shift
+        doInit $@
+        ;;
+    "startDaemon")
+        shift
+        doServer $@
+        ;;
+    "publish")
+        shift
+        doServer $@
+        ;;
+    "stop")
+				shift
+				doStop $@
+				;;
+esac
