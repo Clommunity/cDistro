@@ -42,6 +42,7 @@ start() {
     if [ $DEMO -eq 1 ]; then
       echo "cDistro is in demo mode."
       su - nobody -c "$SERVER $OPTS -S $BINDIP:$PORT -t $DOCROOT >/dev/null 2>&1 &" > /dev/null 2>&1
+      sleep 5
       echo $(pidof php) > $PIDFILE
     else
       $SERVER $OPTS -S $BINDIP:$PORT -t $DOCROOT >/dev/null 2>&1 &
