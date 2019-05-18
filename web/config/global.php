@@ -48,7 +48,7 @@ $lang_dir = "/lang/";
 $debug = false;
 
 // Docker
-$docker_pkg = "docker-ce";
+$docker_pkg = "docker.io";
 
 // Guifi inforamtion
 $GUIFI_CONF_DIR = "/etc/cloudy/";

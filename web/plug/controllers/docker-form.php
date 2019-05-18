@@ -1,6 +1,6 @@
 <?php
 $urlpath="$staticFile/docker";
-$docker_pkg = "docker-ce";
+$docker_pkg = "docker.io";
 $dev = "docker0";
 $form_dir = "/etc/cloudy/docker/templates/";
 

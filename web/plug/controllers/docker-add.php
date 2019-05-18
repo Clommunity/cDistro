@@ -2,7 +2,7 @@
 
 $urlpath="$staticFile/docker-add";
 $returnpath="$staticFile/docker";
-$docker_pkg = "docker-ce";
+$docker_pkg = "docker.io";
 $dev = "docker0";
 $def_templates_dir=$conf['DOCROOT']."/plug/resources/docker/containers/";
 $user_templates_dir="/etc/cloudy/docker/templates/";

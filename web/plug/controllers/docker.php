@@ -5,7 +5,7 @@ $sourceslistdfile="/etc/apt/sources.list.d/docker.list";
 
 function index()
 {
-    global $title, $urlpath, $docker_pkg, $staticFile, $sourceslistdfile;
+    global $title, $urlpath, $docker_pkg, $docker_alternative_pkg, $staticFile, $sourceslistdfile;
 
     $page = "";
     $buttons = "";
@@ -19,7 +19,7 @@ function index()
         $page .= "<div class='alert alert-error text-center'>".t("docker_alert_no_sources")."</div>\n";
         $page .= par(t("docker_sources_manual"));
         $page .= addButton(array('label'=>t("docker_button_add_sources"),'class'=>'btn btn-success', 'href'=>"$urlpath/addsources"));
-    } elseif (!isPackageInstall($docker_pkg)) {
+    } elseif ((!isPackageInstall($docker_pkg)) && (!isPackageInstall($docker_alternative_pkg))) {
         $page .= "<div class='alert alert-error text-center'>".t("docker_alert_not_installed")."</div>\n";
         $page .= addButton(array('label'=>t("docker_button_install"),'class'=>'btn btn-success', 'href'=>"$urlpath/install"));
     } elseif (!isRunning()) {
