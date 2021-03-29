@@ -13,7 +13,7 @@ $serfmenu=dirname(__FILE__)."/../menus/r0101.serf.lookfor.menu.php";
 $avahipsetc_data=array(
                     'SERF_RPC_ADDR'=> array('default'=>'127.0.0.1:7373'),
                     'SERF_BIND'=> array('default'=>'5000'),
-                  'SERF_JOIN'=> array('default'=>'10.139.40.122:5000')
+                  'SERF_JOIN'=> array('default'=>'10.139.40.22:5000')
  );
 $serf_deps = "jq";
 $serf_deps_desc = t('lightweight and flexible command-line JSON processor');

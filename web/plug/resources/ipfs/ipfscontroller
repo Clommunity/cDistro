@@ -11,7 +11,7 @@ IPFSINFOFILE="ipfs.info"
 CONFIG="config"
 TMPCONFIG="tmpconfig"
 IPFSLOG="ipfs-daemon.log"
-BOOTSTRAP="/ip4/10.139.40.122/tcp/4001/ipfs/QmUFGx2aum3ZcBzWNpwFFvKGCoNzhTGb3bgCo4sixkWKm8"
+BOOTSTRAP="/ip4/10.139.40.22/tcp/4001/ipfs/QmUFGx2aum3ZcBzWNpwFFvKGCoNzhTGb3bgCo4sixkWKm8"
 INITDIPFS="/etc/init.d/cloudy-ipfs"
 PIDFILE="/var/run/cloudy-ipfs.pid"
 

@@ -43,7 +43,7 @@ addS("serf_index_current_configuration", "This is the current Serf configuration
 addS("serf_index_description_1", "<a href='https://serfdom.io/' target='_blank'>Serf</a> is a decentralized, lightweight and highly available solution for managing cluster membership, failure detection and service orchestration. It uses an efficient and lightweight gossip protocol to communicate between nodes. Serf is completely masterless with no single point of failure.");
 addS("serf_index_description_2", "The Distributed Announcement and Discovery of Services (DADS) for Community Networks included in Cloudy uses Serf to exchange communication between nodes. If services publication is enabled, local services will be announced to the network and other users will be available to see and use them.");
 addS("serf_index_form_bootstrap", "Bootstrap node");
-addS("serf_index_form_bootstrap_tooltip", "IP address and port of a running Serf node. It will be used to bootstrap the service. Default is 10.139.40.122:5000");
+addS("serf_index_form_bootstrap_tooltip", "IP address and port of a running Serf node. It will be used to bootstrap the service. Default is 10.139.40.22:5000");
 addS("serf_index_form_rpc", "RPC address");
 addS("serf_index_form_rpc_tooltip", "IP address and port for the remote procedure call (RPC). Default is 127.0.0.1:7373");
 addS("serf_index_form_bind", "Bind port");

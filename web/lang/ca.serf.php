@@ -43,7 +43,7 @@ addS("serf_index_current_configuration", "Aquesta és la configuració actual de
 addS("serf_index_description_1", "<a href='https://serfdom.io/' target='_blank'>Serf</a> és una solució descentralitzada, lleugera i d'alta disponibilitat per gestionar la pertanyença a clústers, la detecció de fallades i l'orquestració de serveis. Utilitza un protocol eficient i lleuger de <i>gossip</i> (xafardeig) per a la comunicació entre nodes. Com que Serf no depèn de nodes mestres (<i>master</i>) no té punts únics de fallada.");
 addS("serf_index_description_2", "El sistema d'Anunci i Descoberta de Serveis Distribuït (en anglès, <i>DADS</i>) inclòs a Cloudy utilitza Serf per intercanviar informació entre nodes. Si la publicació de serveis està activada, els serveis locals seran anunciats a la xarxa i altres usuaris podran veure'ls i usar-los.");
 addS("serf_index_form_bootstrap", "Node d'arrencada");
-addS("serf_index_form_bootstrap_tooltip", "L'adreça IP i el port d'un node que estigui executant Serf. S'utilitzarà per arrencar el servei. Valor per defecte: 10.139.40.122:5000");
+addS("serf_index_form_bootstrap_tooltip", "L'adreça IP i el port d'un node que estigui executant Serf. S'utilitzarà per arrencar el servei. Valor per defecte: 10.139.40.22:5000");
 addS("serf_index_form_rpc", "Adreça RPC");
 addS("serf_index_form_rpc_tooltip", "L'adreça IP i el port per les crides a procediment remot (en anglès, <i>RPC</i>. Valor per defecte: 127.0.0.1:7373");
 addS("serf_index_form_bind", "Port d'escolta");
